@@ -1,5 +1,6 @@
 CREATE SCHEMA staging;
 
+--Dim--
 CREATE TABLE staging.customers (
     customer_id TEXT,
     customer_unique_id TEXT,
@@ -8,6 +9,8 @@ CREATE TABLE staging.customers (
     customer_state TEXT
 );
 
+
+--Dim--
 CREATE TABLE staging.geolocation (
     geolocation_zip_code_prefix TEXT,
     geolocation_lat NUMERIC(9,6),
@@ -16,6 +19,7 @@ CREATE TABLE staging.geolocation (
     geolocation_state TEXT
 );
 
+--Fact--
 CREATE TABLE  staging.orders (
     order_id TEXT,
     customer_id TEXT,
@@ -27,6 +31,7 @@ CREATE TABLE  staging.orders (
     order_estimated_delivery_date TIMESTAMP
 );
 
+--Fact--
 CREATE TABLE staging.order_items (
     order_id TEXT,
     order_item_id TEXT,
@@ -37,6 +42,7 @@ CREATE TABLE staging.order_items (
     freight_value FLOAT
 );
 
+--Fact--
 CREATE TABLE staging.order_payments (
     order_id TEXT,
     payment_sequential INT,
@@ -45,16 +51,18 @@ CREATE TABLE staging.order_payments (
     payment_value FLOAT
 );
 
+--Fact and Dim--
 CREATE TABLE staging.reviews (
     review_id TEXT,
     order_id TEXT,
-    review_score INT,
+    review_score INT, --FACT--
     review_comment_title TEXT,
     review_comment_message TEXT,
     review_creation_date TIMESTAMP,
     review_answer_timestamp TIMESTAMP
 );
 
+--Dim--
 CREATE TABLE staging.products (
     product_id TEXT,
     product_category_name TEXT,
@@ -67,6 +75,7 @@ CREATE TABLE staging.products (
     product_width_cm FLOAT
 );
 
+--Dim--
 CREATE TABLE staging.sellers (
     seller_id TEXT,
     seller_zip_code_prefix TEXT,
@@ -74,6 +83,7 @@ CREATE TABLE staging.sellers (
     seller_state TEXT
 );
 
+--Mapping--
 CREATE TABLE staging.product_category_name_translation (
     product_category_name TEXT,
     product_category_name_english TEXT
